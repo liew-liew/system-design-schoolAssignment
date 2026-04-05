@@ -5,12 +5,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject></StartupObject>
-    <StartupObject>ICarSystem.paymentMethod.Program</StartupObject>
-
+    <StartupObject>ICarSystem.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Program.cs" />
+    <Compile Remove="paymentMethod\**" />
   </ItemGroup>
+
 </Project>
