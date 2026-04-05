@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ICarSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fb5a6e38172df201611d06408c1c298c01deef26")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67614c5b64a0333397f177e942837da1048aa98c")]
 [assembly: System.Reflection.AssemblyProductAttribute("ICarSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ICarSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
