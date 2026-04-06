@@ -6,31 +6,36 @@ namespace ICarSystem
 {
     public class Booking
     {
-        public string BookingID { get; set; }
+        public string? BookingID { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public double TotalPrice { get; set; }
-        public string PickupOption { get; set; }
-        public string ReturnOption { get; set; }
-        public iCarStation PickupStation { get; set; }
-        public iCarStation ReturnStation { get; set; }
-        public DeliveryDetails PickupDeliveryDetails { get; set; }
-        public DeliveryDetails ReturnDeliveryDetails { get; set; }
+        public string? PickupOption { get; set; }
+        public string? ReturnOption { get; set; }
+        public iCarStation? PickupStation { get; set; }
+        public iCarStation? ReturnStation { get; set; }
+        public DeliveryDetails? PickupDeliveryDetails { get; set; }
+        public DeliveryDetails? ReturnDeliveryDetails { get; set; }
         public double DeliveryFee { get; set; }
         public double ReturnFee { get; set; }
 
         public int VehicleId { get; set; }
-        public Vehicle Vehicle { get; set; }
+        public Vehicle? Vehicle { get; set; }
         public int Id { get; set; }
 
 
 
+
+        private static int bookingCounter = 0;
 
         public Booking()
         {
             // Initialize fees to zero
             DeliveryFee = 0;
             ReturnFee = 0;
+            // Auto-generate BookingID
+            bookingCounter++;
+            BookingID = "BKG" + bookingCounter.ToString("D3");
         }
 
         // Method to add pickup station details to the booking

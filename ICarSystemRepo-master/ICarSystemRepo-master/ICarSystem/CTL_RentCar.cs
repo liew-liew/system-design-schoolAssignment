@@ -7,9 +7,9 @@ namespace ICarSystem
     public class CTL_RentCar
     {
         private UI_RentCar uiRentCar;
-        private Booking currentBooking;
-        private Vehicle currentCar;
-        private Renter currentRenter;  // Tracks the current renter
+        private Booking? currentBooking;
+        private Vehicle? currentCar;
+        private Renter? currentRenter;  // Tracks the current renter
 
         public CTL_RentCar(UI_RentCar ui)
         {
@@ -35,22 +35,46 @@ namespace ICarSystem
         public List<ScheduleAvailability> GetAvailableDates(int carId)
         {
             currentCar = FindCar(carId);
-            return currentCar?.Availabilities ?? new List<ScheduleAvailability>();
+            if (currentCar == null)
+            {
+                uiRentCar.DisplayFailure("Vehicle not found.");
+                return new List<ScheduleAvailability>();
+            }
+            return currentCar.Availabilities ?? new List<ScheduleAvailability>();
         }
 
         public bool ValidateDate(DateTime startDate, DateTime endDate)
         {
-            return startDate < endDate && currentCar?.CheckCarAvailability(startDate, endDate) == true;
+            if (currentCar == null)
+            {
+                uiRentCar.DisplayFailure("No vehicle selected.");
+                return false;
+            }
+            if (startDate >= endDate)
+            {
+                uiRentCar.DisplayFailure("Start date must be before end date.");
+                return false;
+            }
+            return currentCar.CheckCarAvailability(startDate, endDate);
         }
 
         public void AddDatesToBooking(DateTime startDate, DateTime endDate)
         {
+            if (currentBooking == null)
+            {
+                throw new InvalidOperationException("No active booking. Please start a new booking first.");
+            }
             currentBooking.StartDate = startDate;
             currentBooking.EndDate = endDate;
         }
 
         public void AddPickUpToBooking(string pickUpOption)
         {
+            if (currentBooking == null)
+            {
+                throw new InvalidOperationException("No active booking. Please start a new booking first.");
+            }
+
             currentBooking.PickupOption = pickUpOption;
 
             if (pickUpOption == "Manual Pickup")
@@ -70,6 +94,10 @@ namespace ICarSystem
                 currentBooking.PickupDeliveryDetails = pickupDetails;
                 currentBooking.DeliveryFee = currentBooking.calculateDeliveryFee(pickupDetails);
             }
+            else
+            {
+                uiRentCar.DisplayFailure("Invalid pickup option. Please enter 'Manual Pickup' or 'Delivery'.");
+            }
         }
 
         public void AddPickUpStationToBooking(iCarStation selectedStation)
@@ -79,6 +107,11 @@ namespace ICarSystem
 
         public void AddReturnToBooking(string returnOption)
         {
+            if (currentBooking == null)
+            {
+                throw new InvalidOperationException("No active booking. Please start a new booking first.");
+            }
+
             currentBooking.ReturnOption = returnOption;
 
             if (returnOption == "Manual Return")
@@ -98,6 +131,10 @@ namespace ICarSystem
                 currentBooking.ReturnDeliveryDetails = returnDetails;
                 currentBooking.ReturnFee = currentBooking.calculateReturnFee(returnDetails);
             }
+            else
+            {
+                uiRentCar.DisplayFailure("Invalid return option. Please enter 'Manual Return' or 'Delivery'.");
+            }
         }
 
         public void AddReturnStationToBooking(iCarStation selectedStation)
@@ -107,6 +144,12 @@ namespace ICarSystem
 
         public void ConfirmBooking()
         {
+            if (currentBooking == null || currentCar == null || currentRenter == null)
+            {
+                uiRentCar.DisplayFailure("Cannot confirm booking: missing required information.");
+                return;
+            }
+
             double totalPrice = CalculateTotalPrice();
 
             // Display the booking summary
@@ -142,6 +185,10 @@ namespace ICarSystem
 
         public double CalculateTotalPrice()
         {
+            if (currentBooking == null || currentCar == null)
+            {
+                return 0;
+            }
             return currentBooking.calculateTotalPrice((double)currentCar.RentalRate, currentBooking.DeliveryFee, currentBooking.ReturnFee);
         }
 

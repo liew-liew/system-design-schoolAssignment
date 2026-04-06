@@ -41,8 +41,8 @@ namespace ICarSystem
             testCarOwner.Vehicles.Add(vehicleWithoutAvailability);
 
             // Create Availability Schedules for the Vehicle with availability
-            ScheduleAvailability availability1 = new ScheduleAvailability(1, new DateTime(2024, 08, 01), new DateTime(2024, 08, 10));
-            ScheduleAvailability availability2 = new ScheduleAvailability(2, new DateTime(2024, 08, 15), new DateTime(2024, 08, 20));
+            ScheduleAvailability availability1 = new ScheduleAvailability(1, new DateTime(2026, 08, 01), new DateTime(2026, 08, 10));
+            ScheduleAvailability availability2 = new ScheduleAvailability(2, new DateTime(2026, 08, 15), new DateTime(2026, 08, 20));
 
             // Add the Availabilities to the vehicle
             vehicleWithAvailability.Availabilities.Add(availability1);
@@ -55,9 +55,8 @@ namespace ICarSystem
             // Create and initialize a Booking for the vehicle with availability
             Booking booking = new Booking
             {
-                BookingID = "BKG001",
-                StartDate = new DateTime(2024, 08, 05, 9, 0, 0),
-                EndDate = new DateTime(2024, 08, 10, 9, 0, 0),
+                StartDate = new DateTime(2026, 08, 05, 9, 0, 0),
+                EndDate = new DateTime(2026, 08, 10, 9, 0, 0),
                 Vehicle = vehicleWithAvailability,
             };
             booking.calculateTotalPrice((double)vehicleWithAvailability.RentalRate, booking.DeliveryFee, booking.ReturnFee);
@@ -79,16 +78,16 @@ namespace ICarSystem
             Vehicle vehicle2 = new Vehicle(4, "Honda", "Civic", 2020, 3000, "photos2.jpg", "INS456", "Full Coverage", 90.00m);
 
             // Add some initial availability data
-            vehicle1.Availabilities.Add(new ScheduleAvailability(1, new DateTime(2024, 10, 1), new DateTime(2024, 10, 10)));
-            vehicle1.Availabilities.Add(new ScheduleAvailability(2, new DateTime(2024, 10, 15), new DateTime(2024, 10, 20)));
-            vehicle2.Availabilities.Add(new ScheduleAvailability(1, new DateTime(2024, 9, 1), new DateTime(2024, 9, 5)));
-            vehicle2.Availabilities.Add(new ScheduleAvailability(2, new DateTime(2024, 9, 10), new DateTime(2024, 9, 15)));
+            vehicle1.Availabilities.Add(new ScheduleAvailability(1, new DateTime(2026, 10, 1), new DateTime(2026, 10, 10)));
+            vehicle1.Availabilities.Add(new ScheduleAvailability(2, new DateTime(2026, 10, 15), new DateTime(2026, 10, 20)));
+            vehicle2.Availabilities.Add(new ScheduleAvailability(1, new DateTime(2026, 9, 1), new DateTime(2026, 9, 5)));
+            vehicle2.Availabilities.Add(new ScheduleAvailability(2, new DateTime(2026, 9, 10), new DateTime(2026, 9, 15)));
 
             // Add some hard-coded booked dates for testing overlap
-            vehicle1.Availabilities.Add(new ScheduleAvailability(3, new DateTime(2024, 11, 1), new DateTime(2024, 11, 5)));
-            vehicle1.Availabilities.Add(new ScheduleAvailability(4, new DateTime(2024, 11, 10), new DateTime(2024, 11, 15)));
-            vehicle2.Availabilities.Add(new ScheduleAvailability(3, new DateTime(2024, 10, 1), new DateTime(2024, 10, 5)));
-            vehicle2.Availabilities.Add(new ScheduleAvailability(4, new DateTime(2024, 10, 10), new DateTime(2024, 10, 15)));
+            vehicle1.Availabilities.Add(new ScheduleAvailability(3, new DateTime(2026, 11, 1), new DateTime(2026, 11, 5)));
+            vehicle1.Availabilities.Add(new ScheduleAvailability(4, new DateTime(2026, 11, 10), new DateTime(2026, 11, 15)));
+            vehicle2.Availabilities.Add(new ScheduleAvailability(3, new DateTime(2026, 10, 1), new DateTime(2026, 10, 5)));
+            vehicle2.Availabilities.Add(new ScheduleAvailability(4, new DateTime(2026, 10, 10), new DateTime(2026, 10, 15)));
 
 
             registrationService.AddVehicle(vehicle1);
